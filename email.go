@@ -53,7 +53,6 @@ func SendHtmlEmail(serverAddress string, pass string, from string, subject strin
 	return
 }
 
-
 func SendEmail(serverAddress string, pass string, from string, subject, body string, to ...string) (err error)  {
 
 	host, portStr, er := net.SplitHostPort(serverAddress)

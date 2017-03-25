@@ -177,12 +177,6 @@ func FileExists(filename string) (exists bool) {
 	return
 }
 
-func handleError( _e error ) {
-	if _e != nil {
-		log.Fatal( _e )
-	}
-}
-
 func Rsync(targetDir, params, dest string, delete bool) (err error)  {
 	command := "rsync %v %v %v"
 	if delete {

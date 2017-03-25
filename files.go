@@ -47,18 +47,19 @@ func (s ByDateFilesDesc) Less(i, j int) bool {
 func SortFilesByDate(files []os.FileInfo, asc bool) {
 	if asc {
 		//sort.Sort(ByDateFilesAsc(files))
-		sort.SliceStable(files, func(i,j int) {
+		sort.SliceStable(files, func(i,j int) bool {
 			return files[i].ModTime().After(files[j].ModTime())
 		})
 	} else {
 		//sort.Sort(ByDateFilesDesc(files))
-		sort.SliceStable(files, func(i,j int) {
+		sort.SliceStable(files, func(i,j int) bool {
 			return files[i].ModTime().Before(files[j].ModTime())
 		})
 	}
 }
 
-func RemoveDirRecursive(dir string) error {
+//delete dir
+func RemoveDirRecursively(dir string) error {
 	d, err := os.Open(dir)
 	if err != nil {
 		return err

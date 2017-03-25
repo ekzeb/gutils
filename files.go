@@ -21,37 +21,12 @@ const (
 
 )
 
-type ByDateFilesAsc []os.FileInfo
-type ByDateFilesDesc []os.FileInfo
-
-func (s ByDateFilesAsc) Len() int {
-	return len(s)
-}
-func (s ByDateFilesAsc) Swap(i, j int) {
-	s[i], s[j] = s[j], s[i]
-}
-func (s ByDateFilesAsc) Less(i, j int) bool {
-	return s[i].ModTime().After(s[j].ModTime())
-}
-
-func (s ByDateFilesDesc) Len() int {
-	return len(s)
-}
-func (s ByDateFilesDesc) Swap(i, j int) {
-	s[i], s[j] = s[j], s[i]
-}
-func (s ByDateFilesDesc) Less(i, j int) bool {
-	return s[i].ModTime().Before(s[j].ModTime())
-}
-
 func SortFilesByDate(files []os.FileInfo, asc bool) {
 	if asc {
-		//sort.Sort(ByDateFilesAsc(files))
 		sort.SliceStable(files, func(i,j int) bool {
 			return files[i].ModTime().After(files[j].ModTime())
 		})
 	} else {
-		//sort.Sort(ByDateFilesDesc(files))
 		sort.SliceStable(files, func(i,j int) bool {
 			return files[i].ModTime().Before(files[j].ModTime())
 		})
@@ -181,16 +156,6 @@ func FileExists(filename string) (exists bool) {
 	if _, err := os.Stat(filename); err == nil {
 		exists = true
 	}
-	return
-}
-
-func Rsync(targetDir, params, dest string, delete bool) (err error)  {
-	command := "rsync %v %v %v"
-	if delete {
-		command = command + " --delete"
-	}
-	cmd := exec.Command("bash", "-c", fmt.Sprintf(command, params, targetDir, dest))
-	err = cmd.Run()
 	return
 }
 

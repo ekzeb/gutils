@@ -36,7 +36,7 @@ func SendHtmlEmail(serverAddress string, pass string, from string, subject strin
 		m.SetHeader("To", to...)
 		m.SetHeader("Subject", subject)
 		m.SetBody("text/html", body.String())
-		//m.Attach("/home/Alex/lolcat.jpg")
+		//m.Attach("/home/ekzeb/image.jpg")
 
 		d := gomail.NewDialer(host, port, from, pass)
 		d.TLSConfig = &tls.Config{InsecureSkipVerify: true}
@@ -71,7 +71,6 @@ func SendEmail(serverAddress string, pass string, from string, subject, body str
 		m.SetHeader("To", to...)
 		m.SetHeader("Subject", subject)
 		m.SetBody("text/html", body)
-		//m.Attach("/home/Alex/lolcat.jpg")
 
 		d := gomail.NewDialer(host, port, from, pass)
 		d.TLSConfig = &tls.Config{InsecureSkipVerify: true}

@@ -27,7 +27,7 @@ func SendHtmlEmail(serverAddress string, pass string, from string, subject strin
 			parsedEmailTemplates = make(map[string]*template.Template)
 		}
 		if parsedEmailTemplates[templates[0]] == nil {
-			parsedEmailTemplates[templates[0]] = ParseTemplate(templates, nil)
+			parsedEmailTemplates[templates[0]] = ParseTemplate(templates...)
 		}
 		var body bytes.Buffer
 		parsedEmailTemplates[templates[0]].Execute(&body, params)

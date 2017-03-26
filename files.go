@@ -9,10 +9,10 @@ import (
 	"path/filepath"
 	"compress/gzip"
 	"archive/tar"
-	"fmt"
 	"strings"
-	"os/exec"
 	"sort"
+	"os/exec"
+	"fmt"
 )
 
 const (
@@ -138,6 +138,25 @@ func CopyDir(source string, dest string, excludes ...func(os.FileInfo) bool) (er
 		}
 
 	}
+	return
+}
+
+func RsyncSSH(src, dest string, delete bool, excludes ...string) (err error) {
+
+	command := "rsync -avz -e 'ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null' "
+
+	if delete {
+		command += "--delete "
+	}
+
+	if len(excludes) > 0 {
+		for _, param := range excludes {
+			command += fmt.Sprintf("--exclude %v ", param)
+		}
+	}
+
+	cmd := exec.Command("bash", "-c", fmt.Sprintf("%v %v %v", command, src, dest))
+	err = cmd.Run()
 	return
 }
 

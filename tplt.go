@@ -2,7 +2,6 @@ package util
 
 import (
 	"html/template"
-	"fmt"
 )
 
 func ParseTemplate(files ...string) *template.Template {

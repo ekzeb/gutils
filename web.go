@@ -2,7 +2,7 @@ package util
 
 import (
 	"bufio"
-	"compress/gzip"
+	"github.com/klauspost/compress/gzip"
 	"fmt"
 	"net"
 	"net/http"

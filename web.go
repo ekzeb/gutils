@@ -222,8 +222,6 @@ func parseEncodings(s string) (codings, error) {
 		}
 	}
 
-	// TODO (adammck): Use a proper multi-error struct, so the individual errors
-	//                 can be extracted if anyone cares.
 	if len(e) > 0 {
 		return c, fmt.Errorf("errors while parsing encodings: %s", strings.Join(e, ", "))
 	}

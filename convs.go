@@ -4,14 +4,14 @@ import (
 	"strconv"
 	"log"
 	"fmt"
-	"regexp"
+//	"regexp"
 )
 
 func ParseInts(sids ...string) (ints []int, err error) {
 	for _,s := range sids {
 		int2add, e := strconv.Atoi(s)
 		if e != nil {
-			log.Println(fmt.Sprintf("Error %v parsing %v ", e, s))
+			log.Println(fmt.Errorf("Error %v parsing %v ", e, s))
 			err = e
 			return
 		}

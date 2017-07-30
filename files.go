@@ -16,8 +16,8 @@ const (
 	DefaultFileMode = 0600
 	FileTimeFormat = "2006-01-02_15.04.05.000"
 )
-
-func SortFilesByDate(files []os.FileInfo, asc bool) {
+// Sorts files by os.FileInfo.ModTime
+func SortFilesByModTime(files []os.FileInfo, asc bool) {
 	if asc {
 		sort.SliceStable(files, func(i,j int) bool {
 			return files[i].ModTime().After(files[j].ModTime())
@@ -36,6 +36,15 @@ func RemoveDirRecursively(dir string) error {
 		return err
 	}
 	defer d.Close()
+
+	fi,err := d.Stat()
+	if err != nil {
+		return err
+	}
+	if !fi.IsDir() {
+		return errors.New(fmt.Sprintf("%v not directory", dir))
+	}
+
 	names, err := d.Readdirnames(-1)
 	if err != nil {
 		return err

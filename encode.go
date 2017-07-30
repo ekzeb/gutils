@@ -7,6 +7,7 @@ import (
 	"encoding/json"
 	"bytes"
 	"encoding/gob"
+	"fmt"
 )
 
 
@@ -49,7 +50,7 @@ func LoadGob(data interface{}, filename string) (err error) {
 	raw, err := ioutil.ReadFile(filename)
 
 	if err != nil {
-		log.Println("Error Load GOB data:", err)
+		log.Println(fmt.Errorf("Error Load GOB data:", err))
 	}
 
 	buffer := bytes.NewBuffer(raw)
@@ -67,18 +68,18 @@ func LoadGob(data interface{}, filename string) (err error) {
 func LoadJson(data interface{}, filename string) (err error) {
 	jsonFile, err := os.Open(filename)
 	if err != nil {
-		log.Println("Error opening JSON file:", err)
+		log.Println(fmt.Errorf("Error opening JSON file:", err))
 	}
 	defer jsonFile.Close()
 
 	jsonData, err := ioutil.ReadAll(jsonFile)
 
 	if err != nil {
-		log.Println("Error reading JSON data:", err)
+		log.Println(fmt.Errorf("Error reading JSON data:", err))
 	}
 
 	if err := json.Unmarshal(jsonData, data); err != nil {
-		log.Println("Error Unmarshal JSON data:", err)
+		log.Println(fmt.Errorf("Error Unmarshal JSON data:", err))
 	}
 
 	return
